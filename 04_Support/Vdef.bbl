@@ -1,0 +1,273 @@
+\begin{thebibliography}{29}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Yev()]{Yevjevich1967}
+An objective approach to definitions and investigations of continental
+  hydrologic droughts: Vujica yevjevich: Fort collins, colorado state
+  university, 1967, 19 p. (hydrology paper no. 23).
+\newblock 7\penalty0 (3):\penalty0 353.
+\newblock ISSN 0022-1694.
+\newblock \doi{10.1016/0022-1694(69)90110-3}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/0022169469901103}.
+
+\bibitem[Beguería and {Vicente-Serrano}(2025)]{R-SPEI}
+Santiago Beguería and Sergio~M. {Vicente-Serrano}.
+\newblock \emph{SPEI: Calculation of the Standardized
+  Precipitation-Evapotranspiration Index}, 2025.
+\newblock URL \url{https://CRAN.R-project.org/package=SPEI}.
+\newblock R package version 1.8.1.
+
+\bibitem[Birant and Kut(2007)]{BirantKut2007}
+Derya Birant and Alp Kut.
+\newblock St-dbscan: An algorithm for clustering spatial–temporal data.
+\newblock \emph{Data \& Knowledge Engineering}, 60\penalty0 (1):\penalty0
+  208--221, 2007.
+\newblock \doi{10.1016/j.datak.2006.01.013}.
+
+\bibitem[Cammalleri and Toreti()]{cammalleri_generalized_2023}
+C.~Cammalleri and A.~Toreti.
+\newblock A generalized density-based algorithm for the spatiotemporal tracking
+  of drought events.
+\newblock \doi{10.1175/JHM-D-22-0115.1}.
+\newblock URL
+  \url{https://journals.ametsoc.org/view/journals/hydr/24/3/JHM-D-22-0115.1.xml}.
+\newblock Section: Journal of Hydrometeorology.
+
+\bibitem[Christian et~al.(2019)Christian, Basara, Otkin, Hunt, Wakefield,
+  Flanagan, and Xiao]{Christian2024}
+Jordan~I. Christian, Jeffrey~B. Basara, Jason~A. Otkin, Eric~D. Hunt, Ryann~A.
+  Wakefield, Paul~X. Flanagan, and Xiangming Xiao.
+\newblock A methodology for flash drought identification: Application of flash
+  drought frequency across the united states.
+\newblock \emph{Journal of Hydrometeorology}, 20\penalty0 (5):\penalty0 833 --
+  846, 2019.
+\newblock \doi{10.1175/JHM-D-18-0198.1}.
+\newblock URL
+  \url{https://journals.ametsoc.org/view/journals/hydr/20/5/jhm-d-18-0198_1.xml}.
+
+\bibitem[Drobinski and Others(2016)]{Drobinski2016}
+Philippe Drobinski and Others.
+\newblock Mediterranean heavy precipitation, dry spells and seasonality:
+  mechanisms and recent changes.
+\newblock \emph{<<journal>>}, <<vol>>\penalty0 (<<no>>):\penalty0 <<pp>>, 2016.
+\newblock \doi{<<doi>>}.
+
+\bibitem[Ester et~al.(1996)Ester, Kriegel, Sander, and Xu]{Ester1996}
+Martin Ester, Hans-Peter Kriegel, J{\"o}rg Sander, and Xiaowei Xu.
+\newblock A density-based algorithm for discovering clusters in large spatial
+  databases with noise.
+\newblock In \emph{Proc.\ 2nd Int.\ Conf.\ on Knowledge Discovery and Data
+  Mining (KDD)}, pages 226--231, 1996.
+
+\bibitem[Hargreaves and Samani(1985)]{hargreaves1985}
+George~H. Hargreaves and Z.~A. Samani.
+\newblock Reference crop evapotranspiration from temperature.
+\newblock \emph{Applied Engineering in Agriculture}, 1\penalty0 (2):\penalty0
+  96--99, 1985.
+
+\bibitem[Kim et~al.()Kim, González-Rojí, and Raible]{kim_extratropical_2023}
+Woon~Mi Kim, Santos~J. González-Rojí, and Christoph~C. Raible.
+\newblock Extratropical circulation associated with mediterranean droughts
+  during the last millennium in {CMIP}5 simulations.
+\newblock 19\penalty0 (12):\penalty0 2511--2533.
+\newblock ISSN 1814-9324.
+\newblock \doi{10.5194/cp-19-2511-2023}.
+\newblock URL \url{https://cp.copernicus.org/articles/19/2511/2023/}.
+\newblock Publisher: Copernicus {GmbH}.
+
+\bibitem[Lionello and Others(2020)]{Lionello2020}
+Piero Lionello and Others.
+\newblock The changing mediterranean hydroclimate: trends, variability and
+  extremes.
+\newblock \emph{<<journal>>}, <<vol>>\penalty0 (<<no>>):\penalty0 <<pp>>, 2020.
+\newblock \doi{<<doi>>}.
+
+\bibitem[McKee et~al.(1993)McKee, Doesken, and Kleist]{mckee1993}
+Thomas~B. McKee, Norman~J. Doesken, and John Kleist.
+\newblock The relationship of drought frequency and duration to time scales.
+\newblock In \emph{Proceedings of the 8th Conference on Applied Climatology},
+  pages 179--183, 1993.
+
+\bibitem[Noguera et~al.({\natexlab{a}})Noguera, Domínguez-Castro, and
+  Vicente-Serrano]{noguera2020}
+Iván Noguera, Fernando Domínguez-Castro, and Sergio~M Vicente-Serrano.
+\newblock Characteristics and trends of flash droughts in spain, 1961–2018.
+\newblock 1472\penalty0 (1):\penalty0 155--172, {\natexlab{a}}.
+\newblock Publisher: Wiley Online Library.
+
+\bibitem[Noguera et~al.({\natexlab{b}})Noguera, Domínguez-Castro, and
+  Vicente-Serrano]{noguera_flash_2021}
+Iván Noguera, Fernando Domínguez-Castro, and Sergio~M. Vicente-Serrano.
+\newblock Flash drought response to precipitation and atmospheric evaporative
+  demand in spain.
+\newblock 12\penalty0 (2):\penalty0 165, {\natexlab{b}}.
+\newblock ISSN 2073-4433.
+\newblock \doi{10.3390/atmos12020165}.
+\newblock URL \url{https://www.mdpi.com/2073-4433/12/2/165}.
+\newblock Number: 2 Publisher: Multidisciplinary Digital Publishing Institute.
+
+\bibitem[Otkin et~al.()Otkin, Zhong, Ford, Anderson, Hain, Hoell, Svoboda, and
+  Wang]{otkin_multivariate_2024}
+Jason~A. Otkin, Yafang Zhong, Trent~W. Ford, Martha~C. Anderson, Christopher
+  Hain, Andrew Hoell, Mark Svoboda, and Hailan Wang.
+\newblock Multivariate evaluation of flash drought across the united states.
+\newblock 60\penalty0 (11):\penalty0 e2024WR037333.
+\newblock ISSN 1944-7973.
+\newblock \doi{10.1029/2024WR037333}.
+\newblock URL
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1029/2024WR037333}.
+\newblock \_eprint:
+  https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2024WR037333.
+
+\bibitem[Otkin et~al.(2018)Otkin, Svoboda, Hunt, et~al.]{otkin2018}
+Jason~A. Otkin, Martin Svoboda, Eric~D. Hunt, et~al.
+\newblock Flash droughts: A review and assessment of the challenges imposed by
+  rapid‐onset droughts in the united states.
+\newblock \emph{Bulletin of the American Meteorological Society}, 99\penalty0
+  (6):\penalty0 911--919, 2018.
+\newblock \doi{10.1175/BAMS-D-17-0096.1}.
+
+\bibitem[Papalexiou and Montanari(2018)]{Papalexiou2018}
+Simon~Michael Papalexiou and Alberto Montanari.
+\newblock Global changes in the characteristics of precipitation: intermittency
+  and extremes.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 115\penalty0
+  (49):\penalty0 12692--12697, 2018.
+\newblock \doi{10.1073/pnas.1804667115}.
+
+\bibitem[Schubert et~al.()Schubert, Sander, Ester, Kriegel, and
+  Xu]{schubert_dbscan_2017}
+Erich Schubert, Jörg Sander, Martin Ester, Hans~Peter Kriegel, and Xiaowei Xu.
+\newblock {DBSCAN} revisited, revisited: Why and how you should (still) use
+  {DBSCAN}.
+\newblock 42\penalty0 (3):\penalty0 1--21.
+\newblock ISSN 0362-5915, 1557-4644.
+\newblock \doi{10.1145/3068335}.
+\newblock URL \url{https://dl.acm.org/doi/10.1145/3068335}.
+\newblock Publisher: Association for Computing Machinery ({ACM}).
+
+\bibitem[Shah et~al.()Shah, Hari, Rakovec, Markonis, Samaniego, Mishra, Hanel,
+  Hinz, and Kumar]{shah_increasing_2022}
+Jignesh Shah, Vittal Hari, Oldrich Rakovec, Yannis Markonis, Luis Samaniego,
+  Vimal Mishra, Martin Hanel, Christoph Hinz, and Rohini Kumar.
+\newblock Increasing footprint of climate warming on flash droughts occurrence
+  in europe.
+\newblock 17\penalty0 (6):\penalty0 064017.
+\newblock ISSN 1748-9326.
+\newblock \doi{10.1088/1748-9326/ac6888}.
+\newblock URL \url{https://dx.doi.org/10.1088/1748-9326/ac6888}.
+\newblock Publisher: {IOP} Publishing.
+
+\bibitem[Stagge et~al.()Stagge, Tallaksen, Xu, and
+  Lanen]{stagge_standardized_2014}
+James~H. Stagge, Lena~M. Tallaksen, Chong~Yu Xu, and Henny A. J.~Van Lanen.
+\newblock Standardized precipitation-evapotranspiration index ({SPEI}) :
+  Sensitivity to potential evapotranspiration model and parameters.
+\newblock volume 363, pages 367--373.
+\newblock ISBN 978-1-907161-41-4.
+\newblock URL \url{https://library.wur.nl/WebQuery/wurpubs/558281}.
+\newblock {ISSN}: 0144-7815 Meeting Name: 7th World Flow Regimes from
+  International and Experimental Network Data-Water Conference, {FRIEND}-Water
+  2014.
+
+\bibitem[Svoboda et~al.()Svoboda, {LeComte}, Hayes, Heim, Gleason, Angel,
+  Rippey, Tinker, Palecki, Stooksbury, Miskus, and
+  Stephens]{svoboda_drought_2002}
+Mark Svoboda, Doug {LeComte}, Mike Hayes, Richard Heim, Karin Gleason, Jim
+  Angel, Brad Rippey, Rich Tinker, Mike Palecki, David Stooksbury, David
+  Miskus, and Scott Stephens.
+\newblock {THE} {DROUGHT} {MONITOR}.
+\newblock \doi{10.1175/1520-0477-83.8.1181}.
+\newblock URL
+  \url{https://journals.ametsoc.org/view/journals/bams/83/8/1520-0477-83_8_1181.xml}.
+\newblock Section: Bulletin of the American Meteorological Society.
+
+\bibitem[Toreti and Others(2019)]{Toreti2019}
+Andrea Toreti and Others.
+\newblock Shift and variability of european precipitation timing and
+  persistence.
+\newblock \emph{<<journal>>}, <<vol>>\penalty0 (<<no>>):\penalty0 <<pp>>, 2019.
+\newblock \doi{<<doi>>}.
+
+\bibitem[Tramblay and Others(2013)]{Tramblay2013}
+David Tramblay and Others.
+\newblock Recent changes in mediterranean rainfall: dry‐spell lengthening and
+  seasonal redistribution.
+\newblock \emph{<<journal>>}, <<vol>>\penalty0 (<<no>>):\penalty0 <<pp>>, 2013.
+\newblock \doi{<<doi>>}.
+
+\bibitem[Tramblay and Others(2020)]{Tramblay2020}
+David Tramblay and Others.
+\newblock Future evolution of mediterranean precipitation regime and dry
+  spells.
+\newblock \emph{<<journal>>}, <<vol>>\penalty0 (<<no>>):\penalty0 <<pp>>, 2020.
+\newblock \doi{<<doi>>}.
+
+\bibitem[Treppiedi et~al.({\natexlab{a}})Treppiedi, Cipolla, Francipane, and
+  Noto]{treppiedi_detecting_2021}
+D.~Treppiedi, G.~Cipolla, A.~Francipane, and L.v. Noto.
+\newblock Detecting precipitation trend using a multiscale approach based on
+  quantile regression over a mediterranean area.
+\newblock 41\penalty0 (13):\penalty0 5938--5955, {\natexlab{a}}.
+\newblock ISSN 1097-0088.
+\newblock \doi{10.1002/joc.7161}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/joc.7161}.
+\newblock \_eprint:
+  https://rmets.onlinelibrary.wiley.com/doi/pdf/10.1002/joc.7161.
+
+\bibitem[Treppiedi et~al.({\natexlab{b}})Treppiedi, Cipolla, Francipane,
+  Cannarozzo, and Noto]{treppiedi_investigating_2023}
+Dario Treppiedi, Giuseppe Cipolla, Antonio Francipane, Marcella Cannarozzo, and
+  Leonardo~Valerio Noto.
+\newblock Investigating the reliability of stationary design rainfall in a
+  mediterranean region under a changing climate.
+\newblock 15\penalty0 (12):\penalty0 2245, {\natexlab{b}}.
+\newblock ISSN 2073-4441.
+\newblock \doi{10.3390/w15122245}.
+\newblock URL \url{https://www.mdpi.com/2073-4441/15/12/2245}.
+\newblock Number: 12 Publisher: Multidisciplinary Digital Publishing Institute.
+
+\bibitem[Vicente-Serrano et~al.()Vicente-Serrano, Beguería, and
+  López-Moreno]{vicente2010}
+Sergio~M. Vicente-Serrano, Santiago Beguería, and Juan~I. López-Moreno.
+\newblock A multiscalar drought index sensitive to global warming: The
+  standardized precipitation evapotranspiration index.
+\newblock \doi{10.1175/2009JCLI2909.1}.
+\newblock URL
+  \url{https://journals.ametsoc.org/view/journals/clim/23/7/2009jcli2909.1.xml}.
+\newblock Section: Journal of Climate.
+
+\bibitem[Wang et~al.()Wang, Zeng, Qi, Zhang, Zeng, Shui, Xu, Zhang, Wu, and
+  Cong]{Wang2021ESSD}
+Qianfeng Wang, Jingyu Zeng, Junyu Qi, Xuesong Zhang, Yue Zeng, Wei Shui,
+  Zhanghua Xu, Rongrong Zhang, Xiaoping Wu, and Jiang Cong.
+\newblock A multi-scale daily {SPEI} dataset for drought characterization at
+  observation stations over mainland china from 1961 to 2018.
+\newblock 13\penalty0 (2):\penalty0 331--341.
+\newblock ISSN 1866-3508.
+\newblock \doi{10.5194/essd-13-331-2021}.
+\newblock URL \url{https://essd.copernicus.org/articles/13/331/2021/}.
+\newblock Publisher: Copernicus {GmbH}.
+
+\bibitem[Yevjevich(1983)]{yevjevich1983}
+Vujica Yevjevich.
+\newblock \emph{Probabilistic Approach to Hydrologic Problems}.
+\newblock Water Resources Publications, Littleton, Colorado, 1983.
+\newblock Second printing.
+
+\bibitem[Yuan et~al.()Yuan, Wang, Ji, Wu, Sheffield, and
+  Otkin]{yuan_global_2023}
+Xing Yuan, Yumiao Wang, Peng Ji, Peili Wu, Justin Sheffield, and Jason~A.
+  Otkin.
+\newblock A global transition to flash droughts under climate change.
+\newblock 380\penalty0 (6641):\penalty0 187--191.
+\newblock \doi{10.1126/science.abn6301}.
+\newblock URL \url{https://www.science.org/doi/10.1126/science.abn6301}.
+\newblock Publisher: American Association for the Advancement of Science.
+
+\end{thebibliography}

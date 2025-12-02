@@ -1,0 +1,108 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Vdef.aux
+Case mismatch error between cite keys christian2024 and Christian2024
+---line 32 of file Vdef.aux
+ : \citation{christian2024
+ :                        ,otkin2018}
+I'm skipping whatever remains of this command
+Case mismatch error between cite keys christian2024 and Christian2024
+---line 39 of file Vdef.aux
+ : \citation{otkin2018,christian2024
+ :                                  }
+I'm skipping whatever remains of this command
+Case mismatch error between cite keys christian2024 and Christian2024
+---line 51 of file Vdef.aux
+ : \citation{christian2024
+ :                        }
+I'm skipping whatever remains of this command
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: plainnat.bst
+Reallocating 'name_of_file' (item size: 1) to 7 items.
+Database file #1: biblio.bib
+Warning--I didn't find a database entry for "Cos2025_SaharanWarmIntrusions_WMed"
+Warning--to sort, need author or key in Yevjevich1967
+Warning--empty author in Yevjevich1967
+Warning--empty journal in Yevjevich1967
+Warning--empty year in Yevjevich1967
+Warning--empty year in Yevjevich1967
+Warning--empty journal in cammalleri_generalized_2023
+Warning--empty year in cammalleri_generalized_2023
+Warning--empty year in cammalleri_generalized_2023
+Warning--empty journal in kim_extratropical_2023
+Warning--empty year in kim_extratropical_2023
+Warning--empty year in kim_extratropical_2023
+Warning--empty journal in noguera2020
+Warning--empty year in noguera2020
+Warning--empty journal in noguera_flash_2021
+Warning--empty year in noguera_flash_2021
+Warning--empty journal in otkin_multivariate_2024
+Warning--empty year in otkin_multivariate_2024
+Warning--empty year in otkin_multivariate_2024
+Warning--empty journal in schubert_dbscan_2017
+Warning--empty year in schubert_dbscan_2017
+Warning--empty year in schubert_dbscan_2017
+Warning--empty journal in shah_increasing_2022
+Warning--empty year in shah_increasing_2022
+Warning--empty year in shah_increasing_2022
+Warning--empty booktitle in stagge_standardized_2014
+Warning--empty year in stagge_standardized_2014
+Warning--empty year in stagge_standardized_2014
+Warning--empty journal in svoboda_drought_2002
+Warning--empty year in svoboda_drought_2002
+Warning--empty year in svoboda_drought_2002
+Warning--empty journal in treppiedi_detecting_2021
+Warning--empty year in treppiedi_detecting_2021
+Warning--empty journal in treppiedi_investigating_2023
+Warning--empty year in treppiedi_investigating_2023
+Warning--empty journal in vicente2010
+Warning--empty year in vicente2010
+Warning--empty year in vicente2010
+Warning--empty journal in Wang2021ESSD
+Warning--empty year in Wang2021ESSD
+Warning--empty year in Wang2021ESSD
+Warning--empty journal in yuan_global_2023
+Warning--empty year in yuan_global_2023
+Warning--empty year in yuan_global_2023
+You've used 29 entries,
+            2773 wiz_defined-function locations,
+            816 strings with 12916 characters,
+and the built_in function-call counts, 16516 in all, are:
+= -- 1490
+> -- 1107
+< -- 15
++ -- 373
+- -- 342
+* -- 1544
+:= -- 2563
+add.period$ -- 146
+call.type$ -- 29
+change.case$ -- 198
+chr.to.int$ -- 27
+cite$ -- 102
+duplicate$ -- 626
+empty$ -- 1159
+format.name$ -- 390
+if$ -- 3382
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 29
+newline$ -- 212
+num.names$ -- 112
+pop$ -- 406
+preamble$ -- 1
+purify$ -- 171
+quote$ -- 0
+skip$ -- 459
+stack$ -- 0
+substring$ -- 618
+swap$ -- 50
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 314
+warning$ -- 43
+while$ -- 124
+width$ -- 0
+write$ -- 476
+(There were 3 error messages)

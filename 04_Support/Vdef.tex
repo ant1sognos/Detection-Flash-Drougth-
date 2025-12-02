@@ -1,0 +1,213 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{textcomp}
+\usepackage{placeins}
+\usepackage{algorithmic}
+
+
+
+\begin{document}
+
+\title{\textbf{Identification and spatio-temporal clustering of flash droughts in Sicily}}
+\author{Antoine Sognos, STE Polytech Montpellier}	
+\maketitle
+
+\begingroup
+  \let\clearpage\relax
+  \let\cleardoublepage\relax
+
+\begin{abstract}
+Flash droughts are rapid-onset water deficits that intensify within a few weeks. We present an island-wide characterization for Sicily (2002--2024) using a weekly SPEI at a 1-month scale computed from water balances $P-\mathrm{PET}$ (Hargreaves--Samani PET), and a strict, dynamics-based detection: a 4-week development phase with $\Delta\mathrm{SPEI}\le -2$ culminating at $\mathrm{SPEI}\le -1.28$, followed by persistence below this threshold. Station-level detections are aggregated into regional episodes with ST-DBSCAN ($\varepsilon_{s}=40$~km, $\varepsilon_{t}=7$~days, MinPts=7).
+
+Across 85 SIAS stations, the median ratio “flash droughts / short-term droughts” reaches 61\% (IQR 54--67\%), a high value compared with comparable studies. Spatial organization is contrasted: recurrent “hotspots” appear in the semi-arid western interior and the Palermo--Corleone corridor, whereas the north-eastern mountains show a stronger buffering effect. Cluster durations are typically close to two weeks, indicating that rapid onset can still coincide with operationally significant persistence. Seasonality is bimodal (late spring; late summer--autumn) with a relative shift towards autumn after 2013. No robust monotonic correlation is found between the monthly NAO and episode occurrence, although a same-sign winter signal could precondition environments conducive to late-summer rapid intensification.
+
+We discuss limitations related to the simple PET choice, the detection thresholds, and hyperparameter calibration, and outline avenues to strengthen robustness (systematic sensitivity tests, synoptic diagnostics, cross-validation with soil moisture) and to support operational transfer in Mediterranean climates.
+\end{abstract}
+
+\section*{Introduction}
+Droughts are among the most complex climate extremes to characterize and among the most consequential, affecting water resources, ecosystems, and agriculture worldwide. Recent years have seen increasing attention to flash droughts, rapid-onset water deficits that develop and intensify within a few weeks. Unlike classical seasonal droughts, flash droughts are defined by their rate of intensification rather than by duration. They arise from interacting deficits in precipitation, elevated evaporative demand, and persistent thermal anomalies, leading to abrupt soil moisture depletion and water stress. Such events challenge early-warning systems because they emerge faster than the monitoring time steps traditionally used by hydrological services. The probabilistic framework for drought characterization was first laid out by \citet{Yevjevich1967}, and later operationalized, for example by the U.S. Drought Monitor \citep{svoboda_drought_2002}.
+Since the synthesis of \citet{otkin2018}, detection has focused on rapid intensification. Several metrics have been proposed based on different variables---soil moisture, evaporative demand, satellite reanalysis. Among these, we adopt the Standardized Precipitation--Evapotranspiration Index (SPEI). SPEI is suited to flash-drought studies because it combines precipitation and potential evapotranspiration, can be computed at weekly resolution, and allows inter-site comparison via statistical normalization. SPEI requires estimating potential evapotranspiration (PET); we use the Hargreaves--Samani formulation. In practice, the community generally identifies flash drought when three conditions co-occur: a rapid development phase, a decrease in plant-available water (e.g., soil moisture drawdown), and impacts in social and economic spheres.\\
+The Mediterranean Basin, and Sicily in particular, is a natural laboratory for studying flash droughts. Owing to its central position in the European Mediterranean and, above all, to anthropogenically forced warming, the Mediterranean is changing faster than many other regions. This warrants heightened vigilance and can shed light on trajectories likely to affect other regions trending towards aridification.\\
+The island exhibits strong hydroclimatic gradients---from semi-arid western plains to humid mountain ranges---combined with intensive agricultural demand and frequent heatwaves. Despite these vulnerabilities, no comprehensive assessment of flash-drought frequency, seasonality, and spatial organization has been conducted for Sicily from high-resolution observations. Moreover, while several European studies report increases in flash-drought occurrence and shifts in the rainfall calendar after 2010 \citep{shah_increasing_2022, noguera_flash_2021, cammalleri_generalized_2023}, the underlying mechanisms remain poorly understood at regional scale.\\
+Our objectives are fourfold:
+(1) compute weekly SPEI series for a moderately dense Sicilian network (2002--2024, $1 ~\text{station} / \approx230 ~\text{km}^2$) from consistent meteorological inputs;
+(2) identify flash droughts using a rigorous, rate-of-change definition;
+(3) aggregate local detections into regional footprints via ST-DBSCAN; and
+(4) analyze spatial, seasonal, and large-scale forcings.
+This approach aims to provide an island-scale characterization of flash droughts in Sicily and to place them within the broader Mediterranean context of climate extremes.
+
+\section*{Methodology}
+\subsection*{Study area and dataset}
+
+The study focuses on Sicily (Italy), the largest island in the Mediterranean Sea, with an area of about $25{,}700~\text{km}^2$. Topography ranges from sea level to over 3{,}000~m at Mount Etna, with strong variations in elevation and climate. The climate is typically Mediterranean with hot summers (Csa), and strong spatio-temporal variability in precipitation: the annual mean ranges from about 360~mm in the south-east to over 1{,}300~mm in the north-east, where convective phenomena are more frequent. Rainfall concentrates in winter, while summers are generally dry, though extreme convective episodes can occur.\\
+We use data from SIAS (Servizio Informativo Agrometeorologico Siciliano), which operates about 106 meteorological stations across the island. The dataset includes sub-daily precipitation (10-min step) and air temperature (hourly) series for 2002--2024 (see Fig.~\ref{study_area}b--d). As sensor-based records, these series may include gaps. To maximize data quality, for each year we retain station-year precipitation and temperature only if \(\ge 80\%\) complete (protocol details in \cite{treppiedi_detecting_2021}). Among the 106 stations, we then retain those with at least 21 years above the 80\% completeness threshold. The final selection comprises 85 stations used for analysis (see Fig.~\ref{study_area}a).
+
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{750_Palermo_map_series.png}
+  \caption{a) Study area; b) Precipitation series; c) PET; d) Temperature series (Tmin, Tmean, Tmax).}
+  \label{study_area}
+\end{figure}
+
+Weekly data are recommended by prior drought studies (e.g., \cite{vicente2010}; \cite{noguera2020}), as they better capture rapid changes in atmospheric water demand and surface conditions than coarser monthly steps. Accordingly, all records were aggregated to weekly resolution. Weekly precipitation totals are the sum of 10-min measurements within each week. For air temperature, weekly means were computed separately for Tmin, Tmean, and Tmax by averaging hourly observations over each 7-day window \cite{treppiedi_investigating_2023}. Aggregation starts on 01/01/2002 at 00:00, using 7-day windows through 21/12/2024 at 00:00.
+
+\section*{SPEI computation}
+The Standardized Precipitation--Evapotranspiration Index (SPEI) is computed following \cite{vicente2010}, ensuring a statistically robust representation of climatic deficits. For each station, we form the water balance (WB) as weekly precipitation minus weekly potential evapotranspiration (PET) \cite{stagge_standardized_2014}. Precipitation totals come from aggregation, and PET is estimated. Among PET methods, radiation-based approaches are generally more consistent than Thornthwaite \cite{Wang2021ESSD}; we therefore use \cite{hargreaves1985}:
+\[
+ \mathrm{PET} = R_a \cdot 0.0023 \cdot (T_{\mathrm{mean}} + 17.8)\,\sqrt{T_{\max} - T_{\min}},
+\]
+where $T_{\mathrm{mean}}$ is daily mean air temperature (°C), $T_{\max}$ and $T_{\min}$ are daily maxima and minima (see Fig.~\ref{study_area}c), and $R_a$ is daily extraterrestrial radiation at the surface (MJ m$^{-2}$ d$^{-1}$), as provided by the SPEI package \cite{R-SPEI}. This choice balances efficiency and accuracy: Penman--Monteith is more complete but requires more atmospheric variables and thus additional cost.
+
+\section*{Defining droughts and flash droughts}
+Several SPEI-based drought classifications exist \cite{mckee1993, svoboda_drought_2002, otkin_multivariate_2024}. We distinguish four categories: mild ($-0.5 > \mathrm{SPEI} \ge -0.99$), moderate ($-1.0 \ge \mathrm{SPEI} > -1.49$), severe ($-1.5 \ge \mathrm{SPEI} > -1.99$), and extreme ($\mathrm{SPEI} \le -2.0$) (\cite{Wang2021ESSD}). As noted by \cite{noguera2020} and \cite{otkin2018}, short accumulation windows (1--3 months) are better suited to identifying rapidly evolving meteorological or agricultural droughts, while longer scales damp abrupt changes. Following \cite{noguera2020}, we aggregate the water balance with a 4-week moving window to capture short-term variability relevant to flash-drought dynamics \cite{Christian2024}. The aggregated series are fit with a three-parameter log-logistic distribution (scale, shape, location) by maximum likelihood; each value is then transformed to a standard normal index (mean 0, variance 1), i.e., SPEI (Fig.~\ref{SPEI}a).
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{750_Palermo_SPEI1m_3FD.png}
+    \caption{a) Weekly SPEI (1-month scale) at Palermo; b--d) Three most intense flash droughts identified at the station.}
+    \label{SPEI}
+\end{figure}
+
+We adopt the following criteria, noting that at similar latitudes and climate settings one may expect comparable flash-drought proportions within all short-term droughts (e.g., Spain shows about 40\% annually over 60 years under a similar rapid-onset criterion \cite{noguera2020}):
+\begin{itemize}
+    \item a development phase of at least four consecutive weeks;
+    \item a cumulative SPEI decline during this phase $\le -2$ $z$-units ($\Delta \mathrm{SPEI} \le -2$);
+    \item a final SPEI value $\le -1.28$ at the end of development;
+    \item persistence, with SPEI remaining $\le -1.28$ for at least two additional weeks.
+\end{itemize}
+
+By construction, $\mathrm{SPEI} \le -1.28$ corresponds to the 10\textsuperscript{th} percentile of the standard normal, i.e., severe conditions expected roughly once per decade at a given site under stationarity \cite{noguera2020}. This threshold balances sensitivity (capturing truly damaging events) and specificity (avoiding spurious detections). Conversely, a stricter bound like $-2.0$ ($\approx$   1\textsuperscript{st} percentile) would isolate only the rarest catastrophic episodes, whereas a looser bound (e.g., $-1.0$) would increase false positives. To reduce noise, we also require SPEI to remain $ \le -1.28$ for at least two consecutive weekly steps. Case studies and modeling indicate that soil-moisture and evapotranspiration anomalies typically require 10--14 days to translate into measurable agricultural/hydrological impacts; briefer excursions are unlikely to induce major stress \cite{christian2024,otkin2018}. Finally, the intensity filter is paired with a rapid-onset criterion of $\Delta \mathrm{SPEI} \le -2.0$ over 4 weeks, retaining only events that combine speed and severity \cite{noguera2020}. Together, these criteria minimize false positives while preserving the ability to capture salient episodes. We track standard metrics (\cite{Wang2021ESSD,otkin2018}): onset date (the date such that, four weeks later, $\Delta \mathrm{SPEI}=-2$), maturity date (threshold crossing at $-1.28$ with sufficient decline), end date (return above threshold), duration (consecutive days with SPEI below threshold), and severity, defined as the sum of SPEI values below the threshold \cite{yevjevich1983}.
+
+\paragraph{Motivation for spatio-temporal clustering.}
+After station-level detection, we seek regional patterns--episodes that develop simultaneously in space and time. This requires clustering suited to natural phenomena: flash droughts have irregular boundaries, propagate intermittently, and show heterogeneous intensities across stations. A suitable algorithm should (i) detect clusters without prespecifying their number, (ii) accept non-convex geometries and variable densities, and (iii) separate isolated detections (noise) from truly connected collective events. Classical partitioning (k-means, k-medoids, hierarchical) relies on global distances and convex shapes, requires fixing $k$ a priori, and tends to merge disjoint structures or over-segment heterogeneous zones, making it less suitable for hydroclimatic processes with fragmented, irregular footprints.\\
+Density-based methods address these limitations. DBSCAN \citep{Ester1996} is a reference: it uses a neighborhood radius $\varepsilon$ and a minimum points number MinPts. A core point has at least MinPts neighbors within $\varepsilon_s$; border points are close to a core but do not meet the core criterion; other points are labeled noise. Connected core points form a cluster regardless of shape. DBSCAN detects an unknown number of clusters, handles unequal densities, and naturally identifies outliers---properties valuable in geosciences \citep{schubert_dbscan_2017}.\\
+Hydroclimatic phenomena also evolve in time. We therefore use the spatio-temporal extension ST-DBSCAN \citep{BirantKut2007}, which replaces the 2D neighborhood with a space--time cylinder $(\varepsilon_s,\varepsilon_t)$: two detections share a neighborhood if their horizontal separation is $<\varepsilon_s$ and their time lag is $<\varepsilon_t$. This joint criterion ensures clusters group only events that are both spatially close and quasi-synchronous. For flash droughts---where rapidly coalescing local anomalies can yield a regional deficit---this constraint is essential: it links stations subjected to a common forcing while avoiding the fusion of independent events separated by several weeks \cite{otkin2018,christian2024}. ST-DBSCAN thus provides a simple yet robust framework to identify coherent regional footprints, tying statistical density to the physical constraints of spatio-temporal propagation.
+
+\section*{Tuning ST-DBSCAN hyperparameters}
+ST-DBSCAN depends on three physical hyperparameters:
+(i) the \textbf{spatial tolerance} $\varepsilon_s$,
+(ii) the \textbf{temporal window} $\varepsilon_t$,
+and (iii) the \textbf{density threshold} \textit{MinPts}.
+Their tuning directly conditions the algorithm’s ability to distinguish coherent regional events from local or noisy signals.
+
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{panel_KNN_heatmaps.png}
+  \caption{Diagnostics for ST-DBSCAN tuning.
+           \textbf{(a)} $k$-nearest neighbor distance curves (with $k$ = MinPts–1);
+           \textbf{(b)} Number of clusters detected for each $(\varepsilon_{s},\text{MinPts})$ pair;
+           \textbf{(c)} Corresponding noise fraction.}
+  \label{fig:STDBSCAN_diag}
+\end{figure}
+
+Each hyperparameter reflects a characteristic scale:
+\begin{enumerate}
+\item $\varepsilon_s$ is the maximum horizontal distance between stations likely subjected to a common synoptic forcing;
+\item $\varepsilon_t$ is the maximum time lag for detections to belong to the same rapid-intensification pulse;
+\item MinPts sets the minimal co-occurrence count for a grouping to qualify as “regional” rather than local. These parameters are interdependent: values that are too low fragment a single event into micro-clusters, whereas values that are too high fuse independent episodes, diluting spatial contrasts.
+\end{enumerate}
+
+Tuning seeks a balance between spatial detail and statistical robustness.
+We fix $\varepsilon_t = 7$ days, consistent with weekly SPEI resolution, then explore a grid of $\varepsilon_s$ and MinPts. Two global indicators guide the choice:
+(i) the number of clusters, which should be sufficient to reflect spatial variability; and
+(ii) the noise fraction (share of unclustered detections), constrained here to $<30\%$, a conventional threshold for stable partitioning \citep{cammalleri_generalized_2023}.\\
+Figure~\ref{fig:STDBSCAN_diag} summarizes the key steps:
+\begin{enumerate}
+\item Panel (a) shows the $k$-NN distance curves ($k = \text{MinPts}-1$). The first “elbow” between 35 and 40~km indicates a natural spatial correlation scale, motivating $\varepsilon_s = 40$~km by the rule of \citet{Ester1996}.
+\item Panels (b) and (c) show, respectively, the number of clusters and the noise share for each $(\varepsilon_s,\text{MinPts})$. The optimum is around \fbox{$\varepsilon_s = 40$~km, $\text{MinPts} = 7$}, which maximizes coherent clusters ($\approx$ 55) while keeping noise near \($\approx$ 23\%\).
+\end{enumerate}
+
+We therefore adopt $\varepsilon_s = 40~\mathrm{km}$, $\varepsilon_t = 7~\mathrm{days}$, and $\text{MinPts} = 7$ for subsequent analyses. Although empirical, this triplet provided the best space--time coherence and preserved regional contrasts, ensuring reproducibility and comparability in line with \citet{BirantKut2007} and \citet{schubert_dbscan_2017}.
+
+\section*{Results: detection and characterization of flash droughts}
+\label{sec:fd_detection_clustering}
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=\linewidth]{Sicily_Boxplots_Noguera_byStation.png}
+    \caption{Annual and seasonal frequencies of flash droughts across the 85 SIAS stations.}
+    \label{boxplot}
+\end{figure}
+
+Over the 22-year period (hydrological years 2002--2024), the SIAS network records 4{,}551 classical short-term droughts and 2{,}728 flash droughts at station level.
+Classical drought counts per station range from 45 to 66 (median 53), while flash droughts range from 22 to 40 (median 32).
+Expressed as ratios, flash droughts represent 43--75\% of all short-term drought occurrences depending on site, with a network median of 61\%.
+Figure~\ref{boxplot} summarizes these patterns and highlights three points.\\
+First, seasonality differs clearly between classes.
+Classical short-term droughts peak in the Mediterranean dry season (July--August), whereas flash droughts exhibit a bimodal distribution: a main maximum in early autumn (September--October) and a smaller one in late spring.
+Second, the interquartile range of flash-drought counts is nearly twice that of classical droughts, indicating stronger spatial contrasts.
+Third, several high-elevation stations in the Nebrodi and Madonie ranges consistently record fewer flash droughts---under 30 events over 22 years---suggesting an orographic buffering against rapid soil-moisture depletion.\\
+Compared with other regions where flash-drought climatologies exist, the 61\% Sicilian median is exceptionally high.
+For example, \cite{noguera_flash_2021} report about 40\% of short-term droughts over continental Spain (36--43°N) meet a similar rapid-onset criterion, while a global analysis \cite{yuan_global_2023} shows that even tropical “hotspots” rarely exceed 30--40\%, and midlatitudes (25--50°) typically lie near 15--25\%.\\
+Recent syntheses for the United States and eastern China likewise place the flash-drought share between 25 and 45\% of events \citep{christian2024}.
+Thus, Sicily not only lies at the upper bound of published values, but exceeds by roughly 20 percentage points what is typically reported at comparable latitudes.
+This atypical status underscores the central Mediterranean’s propensity ( $\approx$  37°N) for rapid soil-moisture drawdown when intermittent rainfall deficits coincide with elevated vapor-pressure deficits in summer---a combination less common in humid temperate latitudes but characteristic of semi-arid Mediterranean climates.
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=\linewidth]{panel_flash_drought_summary.png}
+    \caption{Island-scale maps of the total number of short-term droughts, flash droughts, and their ratio per station over the study period.}
+    \label{panel}
+\end{figure}
+
+Figure~\ref{panel} maps the total numbers of classical short-term droughts, flash droughts, and their ratio. A north-east / south-west gradient emerges: Tyrrhenian coastal stations seldom exceed one flash drought per year on average, whereas stations on the semi-arid interior plateau nearly double that frequency. Ratios are particularly high around the Palermo--Corleone corridor and the lower Belice valley, agricultural areas with shallow coarse soils and high late-summer vapor-pressure deficits.
+
+\subsection*{Building regional events}
+\label{sec:param_choice}
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=\linewidth]{cluster_all_panels_filtered.png}
+    \caption{Spatio-temporal clustering of flash droughts using ST-DBSCAN ($\epsilon_{s}$ = 40 km, $\epsilon_{t}$ = 7 days, MinPts = 7). Each panel is a cluster.}
+    \label{fig:clustering_result}
+\end{figure}
+
+Applying ST-DBSCAN to the 2002--2024 catalog (85 stations, weekly resolution) aggregates 2{,}728 station-week detections into 58 coherent spatio-temporal episodes. No point is rejected as noise, indicating that the density threshold (7 stations within a 40~km × 7~d cylinder) already filters purely local anomalies at the detection stage. A typical episode mobilizes on average 40 stations (median 35, range 7--84), nearly half the network, although 37\% of clusters remain strictly local ($\le$ 20 stations) and about 25\% extend to a near island-wide footprint ($\ge$ 70 stations). The largest event (March 2005) involved 84 stations, virtually the entire network. Cluster duration, defined as the median interval between onset of SPEI decline and return above the threshold among member stations, averages 1.98 weeks (\(\approx 13.9\) days; IQR 11.1--16.0 d; min--max 7--25.7 d), with nearly half (49\%) exceeding two weeks: rapid onset (≤ 4 weeks) can therefore lead to notable persistence. Spatial compactness---measured via a density factor (ratio of observed intra-cluster spacing to that expected under a uniform distribution)---ranges from 0.30 to 0.53 (mean 0.44, $\sigma$ = 0.09), with only 5\% above 0.50; the most compact structures occur mainly in the western lowlands, where short inter-station distances and low SPEI noise favor coherent groupings. A clear hierarchy emerges: 37\% local clusters, 38\% intermediate regional footprints (21--69 stations), and 25\% near island-wide. This distribution reflects coexisting scales: very localized convective events and broader synoptic anomalies that drive extended soil-moisture drawdown, capturing the multi-scale nature of flash-drought organization.
+
+\subsection*{Spatial recurrence of exposure}
+\label{sec:fd_exposure_ratio}
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.5\linewidth]{station_fd_nonzero_zoom.png}
+\caption{Station-level participation ratio in regional flash-drought clusters (number of clusters involving the station / total number of clusters).}
+\label{ratioFD}
+\end{figure}
+
+Figure~\ref{ratioFD} maps, for each of the 85 SIAS stations, the exposure ratio \(R(s)=n_{\mathrm{FD}}(s)/58\), i.e., the proportion of regional flash-drought episodes that station \(s\) has participated in at least once (configuration: 40~km--7~d, MinPts=7).
+Values range from 1.7\% (one event in 22 years) to 58\%, with a median 46.7\% and IQR 43.3--51.7\%. Over 41\% of stations have \(R(s)\ge 50\%\), implying that, on average, one out of two regional episodes reaches them, whereas only two high-elevation stations remain below 30\%. A clear west / north-east contrast appears: the western semi-arid interior and the Palermo--Corleone corridor host recurrent rapid-depletion “hotspots” with ratios often >55\%, while the Nebrodi--Madonie ridge and north-eastern capes show the lowest values, revealing orographic buffering. Intermediate ratios (40--50\%) characterize the south-eastern carbonate plateau and the southern coast. Together these patterns suggest two regimes: in the west, late anticyclonic blocks and Saharan warm-air intrusions may favor diffuse synoptic-scale footprints \cite{Cos2025_SaharanWarmIntrusions_WMed}; in the north-east, orographic uplift and breeze convergence anchor more confined mesoscale events \citep{otkin2018,kim_extratropical_2023}. This reading could be refined by per-cluster compactness diagnostics (centroid and density factor), linking station-level recurrence to footprint geometry.
+
+\subsection*{Seasonal variability: construction, results, limitations}
+
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.6\linewidth]{vhuit.png}
+  \caption{Seasonality of regional episodes: (a) seasonal decomposition by hydrological year; (b) seasonal totals; (c) $\chi^2$ breakpoint scan on seasonal shares.}
+  \label{fig:seasonality_panel}
+\end{figure}
+
+To better understand the intra-annual distribution of regional flash droughts, we conduct a seasonal analysis to identify periods most prone to onset. Such a season-by-season view is essential in Mediterranean climates, where the marked succession of rainfall and thermal regimes governs soil recharge and depletion. It links flash-drought dynamics to transitions between wet and dry seasons and to possible shifts in the rainfall calendar over decades.\\
+Each ST-DBSCAN cluster is time-stamped by its onset $t_0$ (earliest start among member stations), then assigned to a calendar month and to a hydrological season: winter (December--February), spring (March--May), summer (June--August), and autumn (September--November). From the full 2002--2024 series, we count, for each month $m$, the number of regional episodes starting in $m$ ($n_{\mathrm{clusters}}(m)$). These monthly counts are then aggregated by season and hydrological year, to obtain (i) an interannual seasonal decomposition and (ii) a series of seasonal totals.\\
+To test whether the distribution across seasons differs between two periods, we apply a $\chi^2$ test of independence to a \(2 \times 4\) contingency table (periods × seasons). The test compares observed seasonal frequencies to those expected under stable seasonality. The statistic sums, over all cells, the squared deviations between observed and expected, weighted by the expected frequency; significance is assessed against a $\chi^2$ distribution with 3 degrees of freedom (four seasons minus one sum constraint). While simple, this approach can detect structural breaks in seasonality without positing a continuous trend. The aggregated distributions (Fig.~\ref{fig:seasonality_panel}) reveal a bimodal seasonality, with a main maximum in late summer--autumn and a smaller one in late spring. This pattern matches typical Mediterranean dynamics: a first peak during the transition from winter recharge to summer desiccation, then a second linked to the delayed return of rains \citep{Tramblay2013, Drobinski2016, Papalexiou2018, Toreti2019, Lionello2020, Tramblay2020, cammalleri_generalized_2023}. The $\chi^2$ test on seasonal shares suggests a bend around 2013--2014, marked by a relative increase in autumn occurrences while spring and summer increase more moderately.\\
+This result should be interpreted cautiously. Seasonal counts show serial dependence from year to year, and effective exposure to clustering (number of valid stations and eligible weeks) varies over time. Moreover, searching for an optimal breakpoint introduces implicit multiplicity, making the exact change point uncertain. We thus retain a coherent signal rather than strict causality: Sicily’s flash-drought seasonality appears bimodal, with a relative shift towards autumn after 2013, consistent with regional evidence of a delayed rainfall calendar and lengthening intra-seasonal dry spells. These findings are best seen as indications of change, not formal proof, but they fit a well-documented Mediterranean context.
+
+\subsection*{Large-scale variability and occurrence: focus on the NAO}
+We explore whether large-scale atmospheric variability modulates the occurrence of regional flash droughts and contributes to changes in their distribution. Specifically, we test the association between the monthly NAO and the monthly number of detected clusters (a count variable) from 2002 to 2024, using Spearman correlations at several lags (NAO leading by $k=0$ to $6$ months). After multiple-comparison control (Benjamini--Hochberg, $\alpha=5\%$), no coefficient is significant, which does not support, at this stage, a simple monotonic relationship between the NAO and monthly episode counts. This absence of a direct statistical link does not preclude indirect pathways or conditional effects: circulation patterns tied to Mediterranean oscillations can favor Saharan warm-air intrusions into the central basin, strengthening evaporative demand and the propensity for rapid drying \citep{Cos2025_SaharanWarmIntrusions_WMed, Lionello2020}. Future work should combine (i) count models (quasi-Poisson or negative binomial) with exposure offsets and season/year effects, (ii) distributed-lag schemes to capture spread-out responses, and (iii) synoptic diagnostics (Saharan intrusions, geopotential) to explicitly connect large-scale context and regional triggers.
+
+\section*{Conclusion and perspectives}
+This study offers a first regional climatology of flash droughts in Sicily based on a clear, reproducible protocol combining a weekly SPEI at a 1-month scale, a strict dynamic definition of development ($\Delta \mathrm{SPEI} \le -2$ over four weeks with crossing of $-1.28$), and spatio-temporal clustering via ST-DBSCAN ($\varepsilon_s = 40~\mathrm{km}$, $\varepsilon_t = 7~\mathrm{days}$, MinPts = 7). Results indicate that flash droughts constitute a majority share of short-term droughts (median 61\%), placing Sicily at the upper bound of values reported for other Mediterranean regions. Spatial organization highlights recurrent hotspots in the semi-arid western interior and the Palermo--Corleone corridor, while the north-eastern reliefs exhibit an orographic buffering effect. Regional episodes typically last about two weeks, implying that rapid onset can nonetheless yield operationally significant persistence. Seasonality is bimodal, with a peak in spring and another in late summer--autumn, and appears to shift towards autumn after 2013, consistent with recent literature on a delayed Mediterranean rainfall calendar. No simple monotonic link is found between monthly NAO variability and episode occurrence, although a coherent signal suggests that a positive winter NAO phase could favor conditions conducive to late-summer rapid intensification. While robust under the chosen parameter set, these findings should be interpreted with due caution: the simplified Hargreaves--Samani PET, empirical detection thresholds, and ST-DBSCAN hyperparameter sensitivity are potential uncertainty sources. Short-term priorities include systematic sensitivity analyses for $\varepsilon_s$, $\varepsilon_t$, MinPts and SPEI thresholds; cross-validation of episodes against independent proxies (soil moisture, energy fluxes, vegetation indices, fires); and a finer articulation with Mediterranean synoptic forcings, notably Saharan warm-air intrusions. In the longer term, applying this framework to other Mediterranean basins will test parameter transferability, refine the typology between “classical” and “fast” episodes, and strengthen the basis for high-resolution operational flash-drought monitoring. Overall, a simple yet rigorously defined framework can already yield coherent signals from station observations and opens avenues to better understand rapid water-deficit dynamics in semi-arid Mediterranean regions.
+
+\endgroup
+\bibliographystyle{plainnat}
+\bibliography{biblio}
+
+\end{document}
